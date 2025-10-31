@@ -158,11 +158,18 @@ export interface Funding {
   uses: FundingUse[];
 }
 
+export interface KeyMetrics {
+  currentARR: string;
+  projectedARR: string;
+  ltv: string;
+}
+
 export interface FinancialSection {
   years: FinancialYears;
   revenueBreakdown: RevenueBreakdown[];
   costs: Cost[];
   funding: Funding;
+  keyMetrics: KeyMetrics;
 }
 
 export interface LaunchPhase {

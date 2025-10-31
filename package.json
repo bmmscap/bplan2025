@@ -1,5 +1,5 @@
 {
-  "name": "copy-of-copy-of-interactive-business-plan-presenter",
+  "name": "ver-2-master-interactive-business-plan-presenter",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "react-dom": "^19.2.0",
-    "react": "^19.2.0"
+    "react": "^19.2.0",
+    "@google/genai": "latest",
+    "marked": "latest"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",
