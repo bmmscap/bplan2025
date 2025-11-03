@@ -14,11 +14,12 @@ import type {
   SuccessFactor 
 } from './types';
 import EditableText from './components/EditableText';
-import { 
-  ChevronRight, ChevronDown, Target, DollarSign, Users, TrendingUp, Lightbulb, Shield, 
+import {
+  ChevronRight, ChevronDown, Target, DollarSign, Users, TrendingUp, Lightbulb, Shield,
   CheckCircle, AlertCircle, Calendar, BarChart3, Zap, Edit3, Save, Download, Upload, Plus, Trash2, Bot, X
 } from './components/icons';
 import RevenueBreakdownChart from './components/RevenueBreakdownChart';
+import ChatPanel from './components/ChatPanel';
 
 const documentContext = `
 DOCUMENTS CONTEXT:
@@ -1404,6 +1405,7 @@ const App: React.FC = () => {
         <SuccessFactorsSection data={businessPlan.successFactors} setData={(data) => handleUpdate('successFactors', data)} editMode={editMode} />
       </main>
       <Toast message={toastMessage} />
+      <ChatPanel />
     </div>
   );
 };
