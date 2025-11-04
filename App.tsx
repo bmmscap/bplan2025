@@ -20,6 +20,27 @@ import {
 } from './components/icons';
 import RevenueBreakdownChart from './components/RevenueBreakdownChart';
 import ChatPanel from './components/ChatPanel';
+import SectionDrafter from './components/SectionDrafter';
+import {
+  executiveQuestions,
+  opportunityQuestions,
+  solutionQuestions,
+  businessQuestions,
+  gtmQuestions,
+  financialQuestions,
+  roadmapQuestions,
+  risksQuestions,
+  successFactorsQuestions,
+  executivePrompt,
+  opportunityPrompt,
+  solutionPrompt,
+  businessPrompt,
+  gtmPrompt,
+  financialPrompt,
+  roadmapPrompt,
+  risksPrompt,
+  successFactorsPrompt
+} from './components/sectionQuestions';
 
 const documentContext = `
 DOCUMENTS CONTEXT:
@@ -449,6 +470,14 @@ const ExecutiveSection: FC<{ data: ExecutiveSectionType; setData: (data: Executi
   
   return (
     <CollapsibleSection title="Executive Summary" icon={Zap}>
+        <div className="mb-4">
+          <SectionDrafter
+            sectionName="Executive Summary"
+            questions={executiveQuestions}
+            systemPrompt={executivePrompt}
+            onAccept={(generatedData) => setData(generatedData)}
+          />
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
             <div className="p-4 bg-gray-50 rounded-lg"><label className="text-sm font-medium text-gray-500 block">Market Size</label><EditableText value={data.marketSize} onChange={v => setData({...data, marketSize: v})} editMode={editMode} className="text-xl font-semibold"/></div>
             <div className="p-4 bg-gray-50 rounded-lg"><label className="text-sm font-medium text-gray-500 block">Year 3 Revenue</label><EditableText value={data.yearThreeRevenue} onChange={v => setData({...data, yearThreeRevenue: v})} editMode={editMode} className="text-xl font-semibold"/></div>
@@ -506,6 +535,14 @@ const OpportunitySection: FC<{ data: OpportunitySectionType; setData: (data: Opp
   }
   return (
     <CollapsibleSection title="Market Opportunity" icon={TrendingUp}>
+      <div className="mb-4">
+        <SectionDrafter
+          sectionName="Market Opportunity"
+          questions={opportunityQuestions}
+          systemPrompt={opportunityPrompt}
+          onAccept={(generatedData) => setData(generatedData)}
+        />
+      </div>
       <h3 className="text-xl font-semibold mb-4">Market Overview</h3>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         <div className="p-4 bg-gray-50 rounded-lg"><label className="text-sm text-gray-500 block">Market Size</label><EditableText value={data.marketSize} onChange={v => setData({...data, marketSize: v})} editMode={editMode} className="text-lg font-bold"/></div>
@@ -593,6 +630,14 @@ const SolutionSection: FC<{ data: SolutionSectionType; setData: (data: SolutionS
   
   return (
     <CollapsibleSection title="Solution & Technology" icon={Lightbulb}>
+      <div className="mb-4">
+        <SectionDrafter
+          sectionName="Solution & Technology"
+          questions={solutionQuestions}
+          systemPrompt={solutionPrompt}
+          onAccept={(generatedData) => setData(generatedData)}
+        />
+      </div>
       <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg mb-8">
         <EditableText value={data.description} onChange={v => setData({...data, description: v})} editMode={editMode} multiline/>
       </div>
@@ -677,6 +722,14 @@ const BusinessSection: FC<{ data: BusinessSectionType; setData: (data: BusinessS
 
   return (
     <CollapsibleSection title="Business Model" icon={DollarSign}>
+      <div className="mb-4">
+        <SectionDrafter
+          sectionName="Business Model"
+          questions={businessQuestions}
+          systemPrompt={businessPrompt}
+          onAccept={(generatedData) => setData(generatedData)}
+        />
+      </div>
       <h3 className="text-xl font-semibold mb-4">Revenue Streams</h3>
       <div className="overflow-x-auto mb-2">
         <div className="min-w-full bg-white rounded-lg shadow">
@@ -743,6 +796,14 @@ const GTMSection: FC<{ data: GTMSectionType; setData: (data: GTMSectionType) => 
 
   return (
     <CollapsibleSection title="Go-To-Market Strategy" icon={Target}>
+      <div className="mb-4">
+        <SectionDrafter
+          sectionName="Go-To-Market Strategy"
+          questions={gtmQuestions}
+          systemPrompt={gtmPrompt}
+          onAccept={(generatedData) => setData(generatedData)}
+        />
+      </div>
       <h3 className="text-xl font-semibold mb-4">Phases</h3>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-2">
         {data.phases.map((p, i) => (
@@ -841,6 +902,14 @@ const RoadmapSection: FC<{ data: RoadmapSectionType; setData: (data: RoadmapSect
 
   return (
     <CollapsibleSection title="Roadmap & Milestones" icon={Calendar}>
+      <div className="mb-4">
+        <SectionDrafter
+          sectionName="Roadmap & Milestones"
+          questions={roadmapQuestions}
+          systemPrompt={roadmapPrompt}
+          onAccept={(generatedData) => setData(generatedData)}
+        />
+      </div>
       <h3 className="text-xl font-semibold mb-4">Launch Plan</h3>
       <div className="space-y-4 mb-2">
         {data.launch.map((p, i) => (
@@ -949,6 +1018,14 @@ const RisksSection: FC<{ data: Risk[]; setData: (data: Risk[]) => void; editMode
 
   return (
     <CollapsibleSection title="Risks & Mitigation" icon={AlertCircle}>
+      <div className="mb-4">
+        <SectionDrafter
+          sectionName="Risks & Mitigation"
+          questions={risksQuestions}
+          systemPrompt={risksPrompt}
+          onAccept={(generatedData) => setData(generatedData)}
+        />
+      </div>
       <div className="space-y-6 mb-2">
         {data.map((r, i) => (
           <div key={i} className={`p-4 border-l-4 rounded-r-lg bg-gray-50 ${getRiskColor(r.level)} group relative`}>
@@ -987,6 +1064,14 @@ const SuccessFactorsSection: FC<{ data: SuccessFactor[]; setData: (data: Success
 
   return (
     <CollapsibleSection title="Key Success Factors" icon={CheckCircle}>
+      <div className="mb-4">
+        <SectionDrafter
+          sectionName="Key Success Factors"
+          questions={successFactorsQuestions}
+          systemPrompt={successFactorsPrompt}
+          onAccept={(generatedData) => setData(generatedData)}
+        />
+      </div>
       <div className="space-y-4 mb-2">
         {data.map((s, i) => (
           <div key={i} className="p-4 border rounded-lg bg-green-50 border-green-200 group relative">
@@ -1063,6 +1148,14 @@ const FinancialSection: FC<{ data: FinancialSectionType; setData: (data: Financi
 
   return (
     <CollapsibleSection title="Financial Projections" icon={BarChart3}>
+      <div className="mb-4">
+        <SectionDrafter
+          sectionName="Financial Projections"
+          questions={financialQuestions}
+          systemPrompt={financialPrompt}
+          onAccept={(generatedData) => setData(generatedData)}
+        />
+      </div>
       <div className="flex border-b mb-4">
         {([1, 2, 3] as const).map((year) => (
           <button
