@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { GoogleGenAI } from '@google/genai';
-import { Lightbulb, X, Send, CheckCircle, Edit3 } from './icons';
+import { Lightbulb, X, CheckCircle } from './icons';
 
 interface Question {
   id: string;
@@ -53,7 +53,9 @@ export default function SectionDrafter({
   };
 
   const handleNext = () => {
+    console.log('handleNext called', { isLastQuestion, currentQuestionIndex, totalQuestions: questions.length });
     if (isLastQuestion) {
+      console.log('Calling generateContent');
       generateContent();
     } else {
       setCurrentQuestionIndex(prev => prev + 1);
@@ -67,10 +69,12 @@ export default function SectionDrafter({
   };
 
   const generateContent = async () => {
+    console.log('generateContent started');
     setStep('generating');
     setError('');
 
     try {
+      console.log('Initializing AI with API key:', process.env.API_KEY ? 'Present' : 'Missing');
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
       // Build the prompt with all answers
@@ -85,18 +89,22 @@ ${answersText}
 
 Generate comprehensive, professional content for the ${sectionName} section based on these answers. Format the output as JSON that matches the expected data structure.`;
 
+      console.log('Calling Gemini AI...');
       const response = await ai.models.generateContent({
         model: 'gemini-2.5-flash',
         contents: prompt,
       });
 
+      console.log('AI Response received');
       const content = response.text;
+      console.log('Generated content length:', content.length);
       setGeneratedContent(content);
       setEditedContent(content);
       setStep('review');
     } catch (err) {
-      console.error('AI Error:', err);
-      setError('Failed to generate content. Please try again.');
+      console.error('AI Error Details:', err);
+      const errorMessage = err instanceof Error ? err.message : 'Unknown error';
+      setError(`Failed to generate content: ${errorMessage}. Please try again.`);
       setStep('questions');
     }
   };
@@ -177,7 +185,7 @@ Generate comprehensive, professional content for the ${sectionName} section base
 
           {/* Questions Step */}
           {step === 'questions' && currentQuestion && (
-            <div className="space-y-4 animate-fadeIn">
+            <div className="space-y-4">
               <label className="block text-lg font-semibold text-gray-900 mb-2">
                 {currentQuestion.question}
               </label>
