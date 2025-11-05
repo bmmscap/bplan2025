@@ -1,0 +1,528 @@
+<!-- Chosen Palette: Warm Neutral (White/Slate) with Blue and Green/Red accents -->
+<!-- Application Structure Plan: A tabbed SPA structure ('Overview', 'Top Stories', 'Market Details', 'Analysis') was chosen over a linear report. This allows non-linear, task-oriented exploration (e.g., "just check movers"). The 'Overview' tab provides a C-suite level summary, 'Top Stories' covers narratives, 'Market Details' contains granular data, and 'Analysis' holds charts and qualitative insights. Navigation is handled by JS-driven tab switching. -->
+<!-- Visualization & Content Choices: Report tables (Indices, Movers, Assets) are presented as both tables/cards for quick lookup (Goal: Inform) and as Chart.js horizontal bar charts in 'Analysis' (Goal: Compare). Text sections (Overview, Standout Stock, Psychology) are presented as formatted HTML text (Goal: Inform). High-priority 'Analyst Note' is elevated to the main 'Overview' tab for visibility. This structure supports both quick skimming and deep dives. Confirmed NO SVG/Mermaid. -->
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Market Report: Nov 5, 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        }
+        .tab-link {
+            transition: all 0.3s ease;
+        }
+        .tab-link.active {
+            border-bottom-color: #3b82f6;
+            color: #3b82f6;
+            font-weight: 600;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 64rem;
+            margin-left: auto;
+            margin-right: auto;
+            height: 256px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 384px;
+            }
+        }
+        .stat-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            background-color: #ffffff;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+        }
+        .text-positive {
+            color: #16a34a;
+        }
+        .text-negative {
+            color: #dc2626;
+        }
+        .bg-positive-light {
+            background-color: #f0fdf4;
+        }
+        .bg-negative-light {
+            background-color: #fef2f2;
+        }
+        .sentiment-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .sentiment-negative {
+            background-color: #fef2f2;
+            color: #dc2626;
+        }
+        .sentiment-mixed {
+            background-color: #fffbeb;
+            color: #d97706;
+        }
+        .sentiment-positive {
+            background-color: #f0fdf4;
+            color: #16a34a;
+        }
+        .sentiment-neutral {
+            background-color: #f3f4f6;
+            color: #4b5563;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div class="container mx-auto max-w-7xl p-4 md:p-8">
+
+        <header class="mb-6">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900">Market Closing Report</h1>
+            <p class="text-lg text-gray-600">November 5, 2025</p>
+        </header>
+
+        <nav class="flex border-b border-gray-300 mb-8">
+            <button class="tab-link active text-gray-500 py-3 px-4 md:px-6 border-b-2 border-transparent" data-tab="overview">Overview</button>
+            <button class="tab-link text-gray-500 py-3 px-4 md:px-6 border-b-2 border-transparent" data-tab="stories">Top Stories</button>
+            <button class="tab-link text-gray-500 py-3 px-4 md:px-6 border-b-2 border-transparent" data-tab="details">Market Details</button>
+            <button class="tab-link text-gray-500 py-3 px-4 md:px-6 border-b-2 border-transparent" data-tab="analysis">Analysis & Charts</button>
+        </nav>
+
+        <main>
+            <!-- Overview Tab -->
+            <div id="tab-overview" class="tab-content active">
+                <p class="text-base text-gray-600 mb-8">This section provides a high-level summary of the day's market performance, sentiment, and forward-looking conclusion, including any high-priority analyst notes.</p>
+
+                <h2 class="text-2xl font-semibold text-gray-900 mb-4">Wall Street Trading Update</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                    <div class="stat-card bg-negative-light">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-base font-semibold text-gray-700">Dow Jones</span>
+                            <span class="font-bold text-lg text-negative">-0.53%</span>
+                        </div>
+                        <p class="text-2xl font-bold text-gray-900">47,085.24</p>
+                        <p class="text-base text-negative font-medium">-251.44</p>
+                    </div>
+                    <div class="stat-card bg-negative-light">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-base font-semibold text-gray-700">S&P 500</span>
+                            <span class="font-bold text-lg text-negative">-1.17%</span>
+                        </div>
+                        <p class="text-2xl font-bold text-gray-900">6,771.55</p>
+                        <p class="text-base text-negative font-medium">-80.42</p>
+                    </div>
+                    <div class="stat-card bg-negative-light">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-base font-semibold text-gray-700">Nasdaq</span>
+                            <span class="font-bold text-lg text-negative">-2.04%</span>
+                        </div>
+                        <p class="text-2xl font-bold text-gray-900">23,348.64</p>
+                        <p class="text-base text-negative font-medium">-486.09</p>
+                    </div>
+                    <div class="stat-card bg-negative-light">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-base font-semibold text-gray-700">Russell 2000</span>
+                            <span class="font-bold text-lg text-negative">-1.80%</span>
+                        </div>
+                        <p class="text-2xl font-bold text-gray-900">2,427.34</p>
+                        <p class="text-base text-negative font-medium">-43.90</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                    <div class="lg:col-span-2 bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <h2 class="text-2xl font-semibold text-gray-900 mb-4">Market Overview & Sentiment</h2>
+                        <p class="text-lg text-gray-700 mb-4">Today proved to be a significant pullback day, with major indices closing sharply lower after Wall Street leaders openly expressed caution regarding "stretched valuations," particularly in the high-flying technology sector. The initial lift from stronger-than-expected economic data (ADP jobs and ISM Services PMI beats) faded throughout the afternoon as profit-taking gained momentum.</p>
+                        <p class="text-base text-gray-700">The market is balancing undeniable economic resilience against mounting valuation fears and geopolitical uncertainty stemming from the prolonged government shutdown. Technology was the clear victim, while defensives (Consumer Staples) and Financials showed comparative strength.</p>
+                        <div class="mt-4">
+                            <span class="text-sm font-medium text-gray-500 mr-2">Overall Sentiment:</span>
+                            <span class="font-bold text-xl text-negative">CAUTIOUS / RISK-OFF</span>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-1 bg-blue-50 border border-blue-200 p-6 rounded-lg shadow-sm">
+                        <h3 class="text-xl font-semibold text-blue-800 mb-3">Analyst Note</h3>
+                        <p class="text-base text-blue-700">An alert from the desk today flagged that the massive sell-off in AI names (NVDA, SMCI) was likely **technical** and not indicative of a long-term shift, suggesting a short-term rebound is highly probable given the strong underlying ISM data. Monitor these names for a potential aggressive reversal in the coming sessions.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-4">Conclusion & Look Ahead</h2>
+                    <p class="text-base text-gray-700 mb-4">The close today confirms a distinct risk-off rotation led by a tech rout. While economic fundamentals look resilient based on the recent private data, the focus has abruptly shifted to market structure and valuation. The government shutdown continues to cloud the outlook, making private data releases (like ADP and ISM) disproportionately important.</p>
+                    <p class="text-base text-gray-700">**Looking Ahead:** The market will be closely watching for any signs of movement on the government shutdown front. Key earnings reports continue to trickle in after the bell, and any weakness in forward guidance—as seen with PINS—will be met with severe selling. Tomorrow's trading will hinge on whether value investors step in to buy the dip in tech, or if the broader market follows the Nasdaq lower into a deeper consolidation phase.</p>
+                </div>
+            </div>
+
+            <!-- Top Stories Tab -->
+            <div id="tab-stories" class="tab-content">
+                <p class="text-base text-gray-600 mb-8">This section details the top narratives that moved the market, including a special focus on the day's standout stock.</p>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <h2 class="text-2xl font-semibold text-gray-900 mb-4">Top 5 Stories of the Day</h2>
+                        <div class="space-y-4">
+
+                            <div class="p-4 border border-gray-200 rounded-lg">
+                                <div class="flex justify-between items-start mb-1">
+                                    <h3 class="font-semibold text-gray-800">1. Tech Sector Plunge & Valuation Concerns</h3>
+                                    <span class="sentiment-badge sentiment-negative">Negative</span>
+                                </div>
+                                <p class="text-sm text-gray-600">Warnings from high-profile CEOs about market exuberance led to widespread profit-taking in the tech and AI-related momentum stocks, driving the Nasdaq's steep decline.</p>
+                            </div>
+
+                            <div class="p-4 border border-gray-200 rounded-lg">
+                                <div class="flex justify-between items-start mb-1">
+                                    <h3 class="font-semibold text-gray-800">2. Strong Economic Data Beats (ADP & ISM)</h3>
+                                    <span class="sentiment-badge sentiment-mixed">Mixed</span>
+                                </div>
+                                <p class="text-sm text-gray-600">The ADP private jobs report (+42k) and ISM Services PMI (52.4) both beat estimates, reigniting fears of persistent inflation and keeping long-term yields elevated.</p>
+                            </div>
+
+                            <div class="p-4 border border-gray-200 rounded-lg">
+                                <div class="flex justify-between items-start mb-1">
+                                    <h3 class="font-semibold text-gray-800">3. Government Shutdown Ties Record Length</h3>
+                                    <span class="sentiment-badge sentiment-negative">Negative</span>
+                                </div>
+                                <p class="text-sm text-gray-600">The protracted US government shutdown has tied the record for the longest ever, severely limiting the release of official economic data and heightening general market anxiety.</p>
+                            </div>
+
+                            <div class="p-4 border border-gray-200 rounded-lg">
+                                <div class="flex justify-between items-start mb-1">
+                                    <h3 class="font-semibold text-gray-800">4. Consumer Sentiment Disparity</h3>
+                                    <span class="sentiment-badge sentiment-neutral">Neutral/Caution</span>
+                                </div>
+                                <p class="text-sm text-gray-600">A new Fall 2025 Consumer Sentiment Report highlights a growing financial gap, with higher-income households feeling optimistic while all consumers actively pursue budget-stretching strategies.</p>
+                            </div>
+
+                            <div class="p-4 border border-gray-200 rounded-lg">
+                                <div class="flex justify-between items-start mb-1">
+                                    <h3 class="font-semibold text-gray-800">5. Gold Breaks Above Key Level</h3>
+                                    <span class="sentiment-badge sentiment-positive">Positive</span>
+                                </div>
+                                <p class="text-sm text-gray-600">Gold futures rallied, surpassing the $4,000/ounce mark, suggesting a flight to safety trade is accelerating amid equity volatility and geopolitical risks.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <h2 class="text-2xl font-semibold text-gray-900 mb-4">Standout Stock: Pinterest (PINS)</h2>
+                        <div class="flex items-center mb-4">
+                            <span class="text-3xl font-bold text-gray-900">PINS</span>
+                            <span class="ml-4 text-3xl font-bold text-negative">-22.41%</span>
+                        </div>
+                        <p class="text-base text-gray-700">
+                            **Pinterest (PINS)** took center stage today, tumbling over 22% after releasing mixed quarterly results. While the company succeeded in beating analyst estimates for Global Monthly Active Users (MAUs), this positive point was completely overshadowed by an **earnings per share miss** and, crucially, **weaker-than-expected guidance** for the current quarter. In a market already sensitive to valuation and growth projections, the disappointment in future outlook signaled by PINS served as a clear proxy for the broader caution gripping the high-growth tech and social media space.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Market Details Tab -->
+            <div id="tab-details" class="tab-content">
+                <p class="text-base text-gray-600 mb-8">This section provides granular data on the day's biggest stock movers, analyst rating changes, and key asset performance across commodities and forex.</p>
+
+                <h2 class="text-2xl font-semibold text-gray-900 mb-4">Biggest Movers</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div>
+                        <h3 class="text-xl font-semibold text-positive mb-3">Winners</h3>
+                        <div class="space-y-3">
+                            <div class="stat-card bg-positive-light">
+                                <div class="flex justify-between items-baseline">
+                                    <span class="text-lg font-bold text-gray-900">SLDP</span>
+                                    <span class="text-xl font-bold text-positive">+52.00%</span>
+                                </div>
+                                <p class="text-sm text-gray-600">Continuation of recent battery tech momentum; high volume activity.</p>
+                            </div>
+                            <div class="stat-card bg-positive-light">
+                                <div class="flex justify-between items-baseline">
+                                    <span class="text-lg font-bold text-gray-900">LMND</span>
+                                    <span class="text-xl font-bold text-positive">+33.52%</span>
+                                </div>
+                                <p class="text-sm text-gray-600">Likely short-squeeze activity following analyst notes and technical rebound.</p>
+                            </div>
+                            <div class="stat-card bg-positive-light">
+                                <div class="flex justify-between items-baseline">
+                                    <span class="text-lg font-bold text-gray-900">RIVN</span>
+                                    <span class="text-xl font-bold text-positive">+25.39%</span>
+                                </div>
+                                <p class="text-sm text-gray-600">High-volume bounce, potentially tied to upcoming EV production news or short covering.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-negative mb-3">Losers</h3>
+                        <div class="space-y-3">
+                            <div class="stat-card bg-negative-light">
+                                <div class="flex justify-between items-baseline">
+                                    <span class="text-lg font-bold text-gray-900">TREX</span>
+                                    <span class="text-xl font-bold text-negative">-30.51%</span>
+                                </div>
+                                <p class="text-sm text-gray-600">Significant post-earnings slump on weak housing demand or guidance cut.</p>
+                            </div>
+                            <div class="stat-card bg-negative-light">
+                                <div class="flex justify-between items-baseline">
+                                    <span class="text-lg font-bold text-gray-900">SLNO</span>
+                                    <span class="text-xl font-bold text-negative">-29.60%</span>
+                                </div>
+                                <p class="text-sm text-gray-600">Large volume sell-off, likely adverse drug trial news or regulatory setback.</p>
+                            </div>
+                            <div class="stat-card bg-negative-light">
+                                <div class="flex justify-between items-baseline">
+                                    <span class="text-lg font-bold text-gray-900">PINS</span>
+                                    <span class="text-xl font-bold text-negative">-22.41%</span>
+                                </div>
+                                <p class="text-sm text-gray-600">Missed earnings per share consensus and provided disappointing forward guidance.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="text-2xl font-semibold text-gray-900 mb-4">Analyst Upgrades & Downgrades</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div>
+                        <h3 class="text-xl font-semibold text-blue-600 mb-3">Upgrades</h3>
+                        <div class="space-y-3">
+                            <div class="stat-card">
+                                <p class="text-lg font-bold">Apple (AAPL)</p>
+                                <p class="text-sm text-gray-500">DZ Bank | Hold $\to$ <span class="font-bold text-positive">Buy</span></p>
+                                <p class="text-lg font-semibold text-gray-700 mt-1">PT: $300</p>
+                            </div>
+                            <div class="stat-card">
+                                <p class="text-lg font-bold">Waste Management (WM)</p>
+                                <p class="text-sm text-gray-500">Robert W. Baird | Neutral $\to$ <span class="font-bold text-positive">Outperform</span></p>
+                                <p class="text-lg font-semibold text-gray-700 mt-1">PT: $242</p>
+                            </div>
+                            <div class="stat-card">
+                                <p class="text-lg font-bold">Inspire Med Sys (INSP)</p>
+                                <p class="text-sm text-gray-500">Wells Fargo | Equal Weight $\to$ <span class="font-bold text-positive">Overweight</span></p>
+                                <p class="text-lg font-semibold text-gray-700 mt-1">PT: $90</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-red-600 mb-3">Downgrades</h3>
+                        <div class="space-y-3">
+                            <div class="stat-card">
+                                <p class="text-lg font-bold">AbbVie (ABBV)</p>
+                                <p class="text-sm text-gray-500">DZ Bank | Buy $\to$ <span class="font-bold text-negative">Hold</span></p>
+                                <p class="text-lg font-semibold text-gray-700 mt-1">PT: $237</p>
+                            </div>
+                            <div class="stat-card">
+                                <p class="text-lg font-bold">DraftKings (DKNG)</p>
+                                <p class="text-sm text-gray-500">BofA Securities | Buy $\to$ <span class="font-bold text-negative">Neutral</span></p>
+                                <p class="text-lg font-semibold text-gray-700 mt-1">PT: $35</p>
+                            </div>
+                            <div class="stat-card">
+                                <p class="text-lg font-bold">Kimberly-Clark (KMB)</p>
+                                <p class="text-sm text-gray-500">Evercore ISI | Outperform $\to$ <span class="font-bold text-negative">In-line</span></p>
+                                <p class="text-lg font-semibold text-gray-700 mt-1">PT: $120</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="text-2xl font-semibold text-gray-900 mb-4">Treasuries, Currencies & Commodities</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="stat-card">
+                        <p class="text-base font-semibold text-gray-700 mb-2">10-Year Treasury Yield</p>
+                        <p class="text-3xl font-bold text-gray-900">4.16%</p>
+                        <p class="text-base text-negative font-medium">+7 bps</p>
+                        <p class="text-xs text-gray-500 mt-2">Rose significantly, hitting a four-week high.</p>
+                    </div>
+                    <div class="stat-card">
+                        <p class="text-base font-semibold text-gray-700 mb-2">US Dollar Index (DXY)</p>
+                        <p class="text-3xl font-bold text-gray-900">100.23</p>
+                        <p class="text-base text-positive font-medium">+0.04%</p>
+                        <p class="text-xs text-gray-500 mt-2">Stable. The greenback held firm as rising yields countered jitters.</p>
+                    </div>
+                    <div class="stat-card">
+                        <p class="text-base font-semibold text-gray-700 mb-2">WTI Crude Oil Futures</p>
+                        <p class="text-3xl font-bold text-gray-900">$60.40</p>
+                        <p class="text-base text-negative font-medium">-0.53%</p>
+                        <p class="text-xs text-gray-500 mt-2">Pulled back slightly, suggesting supply fears are temporarily muted.</p>
+                    </div>
+                    <div class="stat-card">
+                        <p class="text-base font-semibold text-gray-700 mb-2">Gold Futures</p>
+                        <p class="text-3xl font-bold text-gray-900">$4,000/oz</p>
+                        <p class="text-base text-positive font-medium">+0.8%</p>
+                        <p class="text-xs text-gray-500 mt-2">Rallied back above a critical psychological level.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analysis Tab -->
+            <div id="tab-analysis" class="tab-content">
+                <p class="text-base text-gray-600 mb-8">This section provides qualitative insights into market psychology and visualizes the day's key data points through interactive charts.</p>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm mb-8">
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-4">Trading Psychology Lesson</h2>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">The Power of the Narratives (The FOMO/FUD Cycle)</h3>
+                    <div class="space-y-3 text-base text-gray-700">
+                        <p>Today was a classic example of the market *choosing* which narrative to follow. The day started with highly optimistic **economic data (ADP/ISM)**, which suggested accelerating growth—a fundamentally positive driver. However, the market ultimately responded to the narrative of **Fear, Uncertainty, and Doubt (FUD)**, amplified by the cautious words from bank CEOs and the continued weakness in the high-multiple tech sector.</p>
+                        <p class="font-semibold italic">*The Lesson:* Price action often follows the dominant narrative, even if counter-narratives exist. The key is to recognize when the market *switches* its focus. When big-name leaders voice caution after a massive run, the psychology shifts from **Fear of Missing Out (FOMO)** to **Fear of Overvaluation (FOO)**, leading to indiscriminate selling across the most extended names.</p>
+                    </div>
+                </div>
+
+                <h2 class="text-2xl font-semibold text-gray-900 mb-6">Data Visualizations</h2>
+                <div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
+
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Index Performance Comparison</h3>
+                        <p class="text-sm text-gray-600 mb-4">Daily percentage change of the major indices, highlighting the tech-led selloff.</p>
+                        <div class="chart-container">
+                            <canvas id="indexPerformanceChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Biggest Movers (% Change)</h3>
+                        <p class="text-sm text-gray-600 mb-4">Visual comparison of the top 3 winners and top 3 losers of the day.</p>
+                        <div class="chart-container">
+                            <canvas id="moversChart"></canvas>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabs = document.querySelectorAll('.tab-link');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.getAttribute('data-tab');
+
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+
+                    tab.classList.add('active');
+                    document.getElementById(`tab-${tabId}`).classList.add('active');
+                });
+            });
+
+            const createChart = (ctx, type, data, options) => {
+                if (!ctx) return;
+                new Chart(ctx, { type, data, options });
+            };
+
+            Chart.defaults.font.family = 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif';
+            Chart.defaults.font.size = 12;
+            Chart.defaults.color = '#4b5563';
+
+            const commonOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        grid: {
+                            color: '#e5e7eb',
+                        },
+                        ticks: {
+                            color: '#4b5563',
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        }
+                    },
+                    y: {
+                        grid: {
+                            display: false,
+                        },
+                        ticks: {
+                            color: '#1f2937',
+                            font: {
+                                weight: '600'
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: '#1f2937',
+                        titleColor: '#ffffff',
+                        bodyColor: '#ffffff',
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.x !== null) {
+                                    label += context.parsed.x.toFixed(2) + '%';
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                }
+            };
+
+            const indexChartCtx = document.getElementById('indexPerformanceChart')?.getContext('2d');
+            createChart(indexChartCtx, 'bar', {
+                labels: ['Nasdaq', 'Russell 2000', 'S&P 500', 'Dow Jones'],
+                datasets: [{
+                    label: '% Change',
+                    data: [-2.04, -1.80, -1.17, -0.53],
+                    backgroundColor: ['#ef4444', '#f87171', '#fb923c', '#fca5a5'],
+                    borderColor: ['#dc2626', '#e11d48', '#f97316', '#ef4444'],
+                    borderWidth: 1,
+                    barPercentage: 0.7,
+                    categoryPercentage: 0.8
+                }]
+            }, {
+                ...commonOptions,
+                scales: {
+                    ...commonOptions.scales,
+                    x: {
+                        ...commonOptions.scales.x,
+                        beginAtZero: false,
+                    }
+                }
+            });
+
+            const moversChartCtx = document.getElementById('moversChart')?.getContext('2d');
+            createChart(moversChartCtx, 'bar', {
+                labels: ['SLDP', 'LMND', 'RIVN', 'PINS', 'SLNO', 'TREX'],
+                datasets: [{
+                    label: '% Change',
+                    data: [52.00, 33.52, 25.39, -22.41, -29.60, -30.51],
+                    backgroundColor: [
+                        '#22c55e', '#4ade80', '#86efac',
+                        '#ef4444', '#dc2626', '#b91c1c'
+                    ],
+                    borderColor: [
+                        '#16a34a', '#16a34a', '#16a34a',
+                        '#991b1b', '#991b1b', '#991b1b'
+                    ],
+                    borderWidth: 1,
+                    barPercentage: 0.7,
+                    categoryPercentage: 0.8
+                }]
+            }, commonOptions);
+
+        });
+    </script>
+</body>
+</html>
