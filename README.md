@@ -207,29 +207,28 @@ bplan2025/
 
 ## Roadmap
 
-### Q1 2025 - MVP (Current)
+### Q4 2025 - MVP (Current)
 - ✅ Core business plan builder
 - ✅ AI-powered content generation
 - ✅ PDF/PPTX export
 - ✅ Revenue breakdown charts
 
-### Q2 2025 - Collaboration & Intelligence
+### Collaboration & Intelligence
 - 🚧 AI Strategist Guide
 - 🚧 Financial modeling tools
 - 🚧 Multi-user collaboration
 - 🚧 Strategic Alignment Score
 
-### Q3 2025 - Network & Authority
+### Network & Authority
 - 📋 Content & Authority Engine
 - 📋 LinkedIn integration
 - 📋 Influence Velocity Score
 - 📋 Advanced analytics
 
-### Q4 2025 - Scale & Intelligence
-- 📋 Strategic Intelligence Engine
-- 📋 Investor Matching Network
-- 📋 Mobile applications
-- 📋 Enterprise features
+### Q1 2026 - Scale & Intelligence - 🚧 Strategic Intelligence Engine
+- 🚧 Investor Matching Network
+- 🚧 Mobile applications
+- 🚧 Enterprise features
 
 **Legend:**
 - ✅ Complete
