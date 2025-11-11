@@ -122,6 +122,75 @@ Measure the ROI of your thought leadership:
 
 ---
 
+## Standalone Tools & Apps
+
+The Ignite platform is part of a broader ecosystem of standalone tools and applications under active development. These tools extend the platform's capabilities and provide specialized functionality for different business needs.
+
+### Business Planning & Strategy
+
+| Tool | Description | Tech Stack | Status | Link |
+|------|-------------|------------|--------|------|
+| **bplan-2025** | 2025 business planning template with models and forecasts | React / Next.js / TypeScript | Beta | [View Repo](https://github.com/bmmscap/bplan-2025) |
+| **bplan-presenter** | Interactive presentation app for business plans | React / TypeScript | In Development | [View Repo](https://github.com/bmmscap/bplan-presenter) |
+| **b-planner** | Planning tool complementing the bplan suite | React / TypeScript | In Development | [View Repo](https://github.com/bmmscap/b-planner) |
+
+### Market Intelligence & Trading
+
+| Tool | Description | Tech Stack | Status | Link |
+|------|-------------|------------|--------|------|
+| **bmms-market-close-report** | Daily market close recap for BMMS clients | TypeScript / Node | In Development | [View Repo](https://github.com/bmmscap/bmms-market-close-report) |
+| **trade-spark-live** | Real-time trading dashboard | TypeScript / WebSockets | In Development | [View Repo](https://github.com/bmmscap/trade-spark-live) |
+| **trade-spork** | Utility scripts for trading operations | Python / Node | In Development | [View Repo](https://github.com/bmmscap/trade-spork) |
+| **prop-trade-promotion** | Tool for promoting proprietary trades | React / Next.js | In Development | [View Repo](https://github.com/bmmscap/prop-trade-promotion) |
+| **lightweight-charts** | Wrapper/fork for lightweight chart libraries | JavaScript | Library | [View Repo](https://github.com/bmmscap/lightweight-charts) |
+
+### Proposals & Client Tools
+
+| Tool | Description | Tech Stack | Status | Link |
+|------|-------------|------------|--------|------|
+| **ignite-proposals-website** | Customer-facing site for Ignite proposals | Next.js / React | Beta | [View Repo](https://github.com/bmmscap/ignite-proposals-website) |
+| **prop-2** | Prop-app front-end (real-estate/proposal workflow) | React / Vercel | Beta | [View Repo](https://github.com/bmmscap/prop-2) |
+| **prop-ai** | AI-driven property/proposal analysis tool | Python / ML + React | In Development | [View Repo](https://github.com/bmmscap/prop-ai) |
+| **catalyst-pro-demo** | Demo for Catalyst Pro product features | React / TypeScript | Prototype | [View Repo](https://github.com/bmmscap/catalyst-pro-demo) |
+| **one-prompt** | Project centered on prompt generation/management | JavaScript / Node | Prototype | [View Repo](https://github.com/bmmscap/one-prompt) |
+
+### Sustainability & ESG
+
+| Tool | Description | Tech Stack | Status | Link |
+|------|-------------|------------|--------|------|
+| **sustain-2** | Sustainability/ESG metrics tracker (v2) | React / Node | In Development | [View Repo](https://github.com/bmmscap/sustain-2) |
+| **sustain** | Original sustainability/ESG tracking project | React / Node | Beta | [View Repo](https://github.com/bmmscap/sustain) |
+
+### Corporate & Infrastructure
+
+| Tool | Description | Tech Stack | Status | Link |
+|------|-------------|------------|--------|------|
+| **bmms-capital** | Landing page for BMMS Capital services and RFP portal | React / Next.js | Live | [View Repo](https://github.com/bmmscap/bmms-capital) |
+| **bmms-law-firm** | Web portal for BMMS law-firm subsidiary | Next.js / React | Beta | [View Repo](https://github.com/bmmscap/bmms-law-firm) |
+| **dashboard** | Generic dashboard framework for internal tools | React / TypeScript | In Development | [View Repo](https://github.com/bmmscap/dashboard) |
+| **next-video-starter** | Starter template for video projects (Next.js) | Next.js / TypeScript | Stable Template | [View Repo](https://github.com/bmmscap/next-video-starter) |
+| **netlify-feature-tour** | Demo tour highlighting Netlify deployment features | Next.js | Prototype | [View Repo](https://github.com/bmmscap/netlify-feature-tour) |
+
+### Status Key
+
+- **Live** - Production ready and actively used
+- **Beta** - Feature complete, undergoing testing
+- **In Development** - Active development, not yet feature complete
+- **Prototype** - Early stage, proof of concept
+- **Library/Template** - Reusable component or starter template
+
+### Integration Roadmap
+
+Many of these standalone tools are planned for integration with the Ignite platform:
+
+- **bplan-presenter** will integrate with Ignite for seamless presentation generation
+- **bmms-market-close-report** will feed into the Strategic Intelligence Engine
+- **sustain-2** will provide ESG metrics for business planning
+- **prop-ai** will enhance AI-powered content generation capabilities
+- **trade-spark-live** will provide real-time market data for financial modeling
+
+---
+
 ## Documentation
 
 Comprehensive documentation is available in the `/docs` folder:
